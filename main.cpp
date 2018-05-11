@@ -12,24 +12,19 @@ int main(int argc, char *argv[]) {
     unordered_map<string, int> htable;
     string line;
 
-    
-    while (cin >> line) {
-        htable[line]++;
-    }
-
     vector<string> keys;
     keys.reserve(htable.size());
 
-    for (auto& it : htable) {
-        keys.push_back(it.first);
+    while (cin >> line) {
+       if ( htable.find(line) == htable.end() ) // if not in htable already:
+           keys.push_back(line); // add to keys vector
+       htable[line]++;
     }
 
-    sort(keys.begin(), keys.end());
+    sort(keys.begin(), keys.end()); //sort our keys vector
 
-    for (auto& it : keys) {
-
+    for (auto& it : keys) //iterate through keys, printing from htable
         cout << setfill(' ') << setw(7) << htable[it] << " " << it << endl;
-    }
 
     exit(EXIT_SUCCESS);
 
