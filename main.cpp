@@ -7,6 +7,15 @@
 
 using namespace std;
 
+string to_lower(const string& str) {
+
+    string ret;
+
+    transform(str.begin(), str.end(), back_inserter(ret), ::tolower);
+
+    return ret;
+}
+
 int main(int argc, char *argv[]) {
 
     unordered_map<string, int> htable;
@@ -21,6 +30,7 @@ int main(int argc, char *argv[]) {
        htable[line]++;
     }
 
+    // this ultimately should be optional
     sort(keys.begin(), keys.end()); //sort our keys vector
 
     for (auto& it : keys) //iterate through keys, printing from htable
