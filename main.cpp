@@ -19,13 +19,19 @@ string to_lower(const string& str) {
 
 int main(int argc, char *argv[]) {
 
-	int c;
+	int c, s=0, w=-1;
 	bool ignore_case= false;
-    while ((c = getopt(argc, argv, "i")) != -1) {
+    while ((c = getopt(argc, argv, "is:w:")) != -1) {
 		switch (c) {
 			case 'i':
 				ignore_case=true;
 				break;
+            case 's':
+                s = atoi(optarg);
+                break;
+            case 'w':
+                w = atoi(optarg);
+                break;
 			default:
 				abort(); // fix this later...
 		}
@@ -38,6 +44,15 @@ int main(int argc, char *argv[]) {
     keys.reserve(htable.size());
 
     while (cin >> line) {
+
+
+        // FIXME: Don't like this way, we'd be better off updating the
+        //        key_equal & hasher...
+        if ( w != -1 )  
+            line = line.substr(s,w);
+        else if ( s > 0)
+            line = line.substr(s, string::npos);
+
 		if (ignore_case) // FIXME: This will do for now, but ideally we should
 						 //        just update the key_equal & hasher 
 			line = to_lower(line); 
